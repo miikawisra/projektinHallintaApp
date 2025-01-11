@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="projektinHallintaApp.Views.CreateProjectPage"
+             Shell.NavBarIsVisible="False"
+             Title="Create Project">
+
+    <ContentPage.Content>
+        <Grid Padding="20">
+            <!-- Määritellään rivit -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Projektin nimi -->
+            <Label Text="Project Name"
+                   FontSize="16"
+                   VerticalOptions="Center"
+                   Grid.Row="0"/>
+            <Entry x:Name="ProjectNameEntry"
+                   Placeholder="Enter project name"
+                   FontSize="14"
+                   Grid.Row="1"/>
+
+            <!-- Määräaika -->
+            <Label Text="Deadline"
+                   FontSize="16"
+                   VerticalOptions="Center"
+                   Grid.Row="2"/>
+            <DatePicker x:Name="DeadlinePicker"
+                        Grid.Row="3"
+                        FontSize="14"/>
+
+            <!-- Tallenna projekti -->
+            <Button Text="Save Project"
+                    BackgroundColor="Blue"
+                    TextColor="White"
+                    FontSize="16"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Grid.Row="4"
+                    Clicked="OnSaveProjectClicked"/>
+
+            <Button Text="Return to Mainpage"
+            BackgroundColor="Red"
+            TextColor="White"
+            FontSize="16"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Grid.Row="5"
+            Clicked="ReturnToMainPage"/>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

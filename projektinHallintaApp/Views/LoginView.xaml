@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="projektinHallintaApp.Views.LoginView"
+             Shell.NavBarIsVisible="False">
+    
+             
+
+
+
+
+    <ContentPage.Content>
+        
+        <Grid Margin="20">
+            <!-- Määritellään 7 riviä -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Welcome -->
+                <RowDefinition Height="Auto" />
+                <!-- Login to continue -->
+                <RowDefinition Height="20" />
+                <!-- Spacing -->
+                <RowDefinition Height="Auto" />
+                <!-- Email -->
+                <RowDefinition Height="Auto" />
+                <!-- Password -->
+                <RowDefinition Height="20" />
+                <!-- Spacing -->
+                <RowDefinition Height="Auto" />
+                <!-- Login Button -->
+            </Grid.RowDefinitions>
+
+            <!-- Sisältö riveillä -->
+            <Label Text="Welcome" 
+                   FontSize="24" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Row="0" />
+
+            <Label Text="Login with username" 
+                   FontSize="16" 
+                   HorizontalOptions="Center" 
+                   VerticalOptions="Center" 
+                   Grid.Row="1" />
+
+            <!-- Spacing on Row 2, ei tarvitse lisätä mitään -->
+
+            <Label Text="Username" 
+                   FontSize="14" 
+                   Grid.Row="3" 
+                   VerticalOptions="Center" />
+
+            <Entry Placeholder="Enter your username" 
+                   Grid.Row="3" 
+                   Margin="100,0,0,0" 
+                   x:Name="EmailEntry"/>
+
+            
+
+            <!-- Spacing on Row 5, ei tarvitse lisätä mitään -->
+
+            <Button Text="Login" 
+                    BackgroundColor="Blue" 
+                    TextColor="White" 
+                    FontSize="16" 
+                    HorizontalOptions="Center" 
+                    VerticalOptions="Center" 
+                    Grid.Row="6" 
+                    Clicked="OnLoginButtonClicked" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
+
+
+
