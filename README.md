@@ -17,3 +17,8 @@ Things I still need to do to it:
 3. Create ablitity to login to existing project
 
 4. Create ability for users to chat about projects and congratulate when finishing assainments.
+
+
+18.1.2015
+
+Added SQLite, wallpaper
