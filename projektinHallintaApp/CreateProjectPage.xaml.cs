@@ -6,7 +6,7 @@ namespace projektinHallintaApp.Views
 {
     public partial class CreateProjectPage : ContentPage
     {
-        private ObservableCollection<Project> _projects;
+        private DatabaseService _databaseService;
 
         // Oletuskonstruktori, joka viittaa globaalisti App.Projects
         public CreateProjectPage() : this(App.Projects) // K‰ytet‰‰n globaalisti m‰‰ritelty‰ projektikokoelmaa
@@ -17,7 +17,7 @@ namespace projektinHallintaApp.Views
         public CreateProjectPage(ObservableCollection<Project> projects)
         {
             InitializeComponent();
-            _projects = projects;
+            _databaseService = new DatabaseService();
         }
 
         private async void OnSaveProjectClicked(object sender, EventArgs e)
@@ -31,16 +31,15 @@ namespace projektinHallintaApp.Views
                 return;
             }
 
-            // Luodaan uusi projekti
+            // Luo uusi projekti ja tallenna tietokantaan
             var newProject = new Project
             {
                 Name = projectName,
                 Deadline = deadline,
-                DailyGoals = new List<string>() // Voit lis‰t‰ tavoitteet myˆhemmin
+                
             };
 
-            // Lis‰t‰‰n projekti listaan
-            _projects.Add(newProject);
+            _databaseService.SaveProject(newProject);
 
             // Navigoidaan takaisin MainPage-sivulle
             await Shell.Current.GoToAsync("//MainPage");

@@ -6,55 +6,67 @@
              Title="Create Project">
 
     <ContentPage.Content>
-        <Grid Padding="20">
-            <!-- Määritellään rivit -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Grid VerticalOptions="FillAndExpand">
+            <!-- Taustakuva -->
+            <Image Source="Resources/Images/tausta3.png"
+                   Aspect="Fill"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand" />
 
-            <!-- Projektin nimi -->
-            <Label Text="Project Name"
-                   FontSize="16"
-                   VerticalOptions="Center"
-                   Grid.Row="0"/>
-            <Entry x:Name="ProjectNameEntry"
-                   Placeholder="Enter project name"
-                   FontSize="14"
-                   Grid.Row="1"/>
+            <!-- Sisältö -->
+            <Grid Padding="20">
+                <!-- Määritellään rivit -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <!-- Lisää tämä rivi, joka venyttää alareunan -->
+                </Grid.RowDefinitions>
 
-            <!-- Määräaika -->
-            <Label Text="Deadline"
-                   FontSize="16"
-                   VerticalOptions="Center"
-                   Grid.Row="2"/>
-            <DatePicker x:Name="DeadlinePicker"
-                        Grid.Row="3"
-                        FontSize="14"/>
+                <!-- Projektin nimi -->
+                <Label Text="Project Name"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       TextColor="Black"
+                       Grid.Row="0" />
+                <Entry x:Name="ProjectNameEntry"
+                       Placeholder="Enter project name"
+                       TextColor="Coral"
+                       FontSize="14"
+                       Grid.Row="1" />
 
-            <!-- Tallenna projekti -->
-            <Button Text="Save Project"
-                    BackgroundColor="Blue"
-                    TextColor="White"
-                    FontSize="16"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Grid.Row="4"
-                    Clicked="OnSaveProjectClicked"/>
+                <!-- Määräaika -->
+                <Label Text="Deadline"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       TextColor="Black"
+                       Grid.Row="2" />
+                <DatePicker x:Name="DeadlinePicker"
+                            Grid.Row="3"
+                            FontSize="14" />
 
-            <Button Text="Return to Mainpage"
-            BackgroundColor="Red"
-            TextColor="White"
-            FontSize="16"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Grid.Row="5"
-            Clicked="ReturnToMainPage"/>
+                <!-- Tallenna projekti -->
+                <Button Text="Save Project"
+                        BackgroundColor="Blue"
+                        TextColor="White"
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Grid.Row="4"
+                        Clicked="OnSaveProjectClicked" />
 
+                <Button Text="Return to Mainpage"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        FontSize="16"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Grid.Row="5"
+                        Clicked="ReturnToMainPage" />
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

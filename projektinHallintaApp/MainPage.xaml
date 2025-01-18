@@ -6,61 +6,72 @@
              Title="Main Page">
 
     <ContentPage.Content>
-        <Grid Padding="20">
-            <!-- Määritellään rivit -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Grid>
+            <!-- Taustakuva -->
+            <Image Source="Images/tausta3.png"
+               Aspect="AspectFill"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand" />
 
-            <!-- Näytetään projektit -->
-            <Label Text="My Projects"
+            <!-- Sisältö -->
+            <Grid Padding="20">
+                <!-- Määritellään rivit -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <!-- ListView täyttää tilan -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Näytetään projektit -->
+                <Label Text="My Projects"
                    FontSize="20"
                    HorizontalOptions="Center"
-                   Grid.Row="0"/>
+                   Grid.Row="0" />
 
-            <!-- Lista projekteista -->
-            <ListView x:Name="ProjectsListView"
-          ItemsSource="{Binding Projects}"
-          Grid.Row="1"
-          ItemSelected="OnProjectSelected">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" Padding="5">
-                                <!-- Projektin tiedot -->
-                                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-                                    <Label Text="{Binding Name}"
-                               FontSize="16"/>
-                                    <Label Text="{Binding Deadline, StringFormat='{0:yyyy-MM-dd}'}"
-                               FontSize="14"
-                               TextColor="Gray"/>
+                <!-- Lista projekteista -->
+                <ListView x:Name="ProjectsListView"
+                      ItemsSource="{Binding Projects}"
+                      Grid.Row="1"
+                      ItemSelected="OnProjectSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal" Padding="5">
+                                    <!-- Projektin tiedot -->
+                                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+                                        <Label Text="{Binding Name}"
+                                           FontSize="16" />
+                                        <Label Text="{Binding Deadline, StringFormat='{0:yyyy-MM-dd}'}"
+                                           FontSize="14"
+                                           TextColor="Gray" />
+                                    </StackLayout>
+
+                                    <!-- Poista-nappi -->
+                                    <Button Text="Delete"
+                                        TextColor="White"
+                                        BackgroundColor="Red"
+                                        VerticalOptions="Center"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnDeleteProjectClicked" />
                                 </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                                <!-- Poista-nappi -->
-                                <Button Text="Delete"
-                            TextColor="White"
-                            BackgroundColor="Red"
-                            VerticalOptions="Center"
-                            CommandParameter="{Binding .}"
-                            Clicked="OnDeleteProjectClicked" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-
-            <!-- Lisää projekti -nappi -->
-            <Button Text="Add Project"
+                <!-- Lisää projekti -nappi -->
+                <Button Text="Add Project"
                     BackgroundColor="Green"
                     TextColor="White"
                     FontSize="16"
                     HorizontalOptions="Center"
                     VerticalOptions="Center"
                     Grid.Row="2"
-                    Clicked="OnAddProjectClicked"/>
+                    Clicked="OnAddProjectClicked" />
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

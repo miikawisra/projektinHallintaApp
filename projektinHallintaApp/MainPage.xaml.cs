@@ -1,79 +1,77 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq; // Tämän tarvitaan LINQ-toimintoihin
 using projektinHallintaApp.Views;
-
-
-
 
 namespace projektinHallintaApp.Views
 {
     public partial class MainPage : ContentPage
     {
-        // Määritellään lista projekteista
+        private DatabaseService _databaseService;
         public ObservableCollection<Project> Projects { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
 
-            // Käytetään globaalisti määriteltyä projektikokoelmaa
-            Projects = App.Projects; // Nyt tämä lista on saatavilla myös MainPage:ssa
-            BindingContext = this; // Määritellään binding context
+            _databaseService = new DatabaseService();
+            Projects = new ObservableCollection<Project>(_databaseService.GetProjects());
+
+            BindingContext = this; // Bindataan MainPage tämän luokan dataan
         }
 
         private void OnDeleteProjectClicked(object sender, EventArgs e)
         {
-            // Haetaan poistettava projekti CommandParameter:sta
-            var button = (Button)sender;
-            var projectToDelete = (Project)button.CommandParameter;
+            var project = (sender as Button).BindingContext as Project;
 
-            if (projectToDelete != null)
+            if (project != null)
             {
-                
-                    // Poistetaan projekti
-                    App.Projects.Remove(projectToDelete);
-                
+                _databaseService.DeleteProject(project); // Poista tietokannasta
+                Projects.Remove(project); // Päivitä näkymä
             }
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            // Päivitä projektit tietokannasta
+            Projects.Clear();
+            var projectsFromDb = _databaseService.GetProjects();
+            foreach (var project in projectsFromDb)
+            {
+                Projects.Add(project);
+            }
+
+            // Tarkista ja poista vanhentuneet projektit
             RemoveExpiredProjects();
         }
 
         private void RemoveExpiredProjects()
         {
-            // Luo kopio projekteista, jotka pitää poistaa
+            // Etsi vanhentuneet projektit
             var expiredProjects = Projects.Where(p => p.Deadline < DateTime.Now).ToList();
 
             foreach (var project in expiredProjects)
             {
-                Projects.Remove(project);
+                Projects.Remove(project); // Poista näkymästä
+                _databaseService.DeleteProject(project); // Poista myös tietokannasta
             }
         }
 
-
-
-
-
-
-
-        // Tapahtuma, joka käynnistyy kun "Add Project" -nappia painetaan
         private async void OnAddProjectClicked(object sender, EventArgs e)
         {
-            // Navigoi AddProjectPage-sivulle
+            // Siirrytään CreateProjectPage-sivulle
             await Shell.Current.GoToAsync("///CreateProjectPage");
         }
 
-        // Tapahtuma, joka käynnistyy kun projektia valitaan ListView:ssä
         private async void OnProjectSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            // Tarkistetaan, että valinta ei ole tyhjä
             if (e.SelectedItem != null)
             {
                 var selectedProject = (Project)e.SelectedItem;
 
-                // Voit tehdä jotain valitun projektin kanssa, esim. näyttää sen tiedot
+                // Näytä valitun projektin tiedot käyttäjälle
                 await DisplayAlert("Project Selected", $"Project: {selectedProject.Name}", "OK");
 
                 // Poistetaan valinta
@@ -81,6 +79,4 @@ namespace projektinHallintaApp.Views
             }
         }
     }
-
-    
 }
